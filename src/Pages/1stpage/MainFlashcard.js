@@ -1,6 +1,6 @@
 import React from "react";
 
-const MainFlashcard = ({ formik }) => {
+const MainFlashcard = ({ formik, handleChange }) => {
   return (
     <div>
       <div className="mt-5 sm:px-14 px-10 py-7 bg-white rounded-md shadow-lg">
@@ -9,20 +9,31 @@ const MainFlashcard = ({ formik }) => {
             Create Group*
           </label>
 
-          <input
-            type="text"
-            name="groupName"
-            id="groupname"
-            value={formik.values.groupName}
-            onChange={formik.handleChange}
-            placeholder="Add Group name"
-            className="py-4 px-5 focus:outline-blue-500 outline-blue-100 outline outline-2 focus:outline-7 rounded md:w-96"
-          />
-          {formik.errors.groupName ? (
-            <div className="text-red-600 text-sm">
-              {formik.errors.groupName}
-            </div>
-          ) : null}
+          <div className="flex gap-5 items-center">
+            <input
+              type="text"
+              name="groupName"
+              id="groupname"
+              value={formik.values.groupName}
+              onChange={formik.handleChange}
+              placeholder="Add Group name"
+              className="py-4 px-5 focus:outline-blue-500 outline-blue-100 outline outline-2 focus:outline-7 rounded md:w-96"
+            />
+            {formik.errors.groupName ? (
+              <div className="text-red-600 text-sm">
+                {formik.errors.groupName}
+              </div>
+            ) : null}
+
+            <input
+              type="file"
+              name="images"
+              accept="image/*"
+              label="Upload Image"
+              multiple
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         <div className="flex flex-col">

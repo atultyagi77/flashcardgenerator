@@ -7,7 +7,9 @@ import { showFalshCard } from "../../redux/action/Action";
 
 const MyFlashcard = () => {
   const [cardHandle, setCardHandle] = useState(6);
-  const state = useSelector((state) => state.Reducer.groupData);
+  const state = useSelector((state) => {
+    return state.Reducer.groupData;
+  });
   const dispatch = useDispatch();
   // click handler
   const showAllcard = () => {
@@ -29,7 +31,9 @@ const MyFlashcard = () => {
                   <div className="">
                     <div className="grid md:grid-cols-12 font-medium">
                       <div className="col-span-3">
-                        <div className="cardImg mr-4"></div>
+                        <div className="cardImg mr-4">
+                          <img src={ele.state[0]?.selectedImage} />
+                        </div>
                       </div>
                       <div className="col-span-9">
                         <div className="">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AddMore from "./AddMore";
 import MainFlashcard from "./MainFlashcard";
 import TermForm from "./TermForm";
@@ -9,6 +9,13 @@ import { addGroup } from "../../redux/action/Action";
 const CreateNew = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.Reducer.inputData);
+
+  const [files, setFiles] = useState();
+
+  const handleChange = (e) =>
+    setFiles(
+      Object.values(e.target.files)?.map((item) => URL.createObjectURL(item))
+    );
 
   const initialValues = {
     groupName: "",
@@ -24,6 +31,7 @@ const CreateNew = () => {
     const curentValue = {
       term: formik.values.term,
       defination: formik.values.defination,
+      selectedImage: formik.values.selectedImage,
     };
     state.push(curentValue);
     dispatch(
@@ -63,14 +71,16 @@ const CreateNew = () => {
     validate,
   });
 
+  console.log("🚀 ~ CreateNew ~ formik:", formik);
+
   return (
     <div>
       <div>
         <form onSubmit={formik.handleSubmit}>
-          <MainFlashcard formik={formik} />
+          <MainFlashcard formik={formik} handleChange={handleChange} />
           <div className="mt-6 sm:px-14 px-10 py-7 bg-white rounded-md shadow-lg">
             <TermForm />
-            <AddMore formik={formik} />
+            <AddMore formik={formik} files={files} />
           </div>
 
           <div className="py-20 flex justify-center items-center">

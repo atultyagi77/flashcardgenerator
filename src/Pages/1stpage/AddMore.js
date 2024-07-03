@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addInputBox } from "../../redux/action/Action";
 
-const AddMore = ({ formik }) => {
+const AddMore = ({ formik, files }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.Reducer.inputData);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleSelectModal = () => setOpenModal((prev) => !prev);
 
   const addInputValue = () => {
     dispatch(
       addInputBox({
         term: formik.values.term,
         defination: formik.values.defination,
+        selectedImage: formik.values.selectedImage,
       })
     );
     formik.values.term = "";
     formik.values.defination = "";
+    formik.values.selectedImage = "";
   };
 
   return (
@@ -44,7 +50,7 @@ const AddMore = ({ formik }) => {
           ) : null}
         </div>
 
-        <div className=" flex flex-col w-full sm:mt-4 sm:w-2/6">
+        <div className="flex flex-col w-full sm:mt-4 sm:w-2/6">
           <label htmlFor="define" className="text-gray-600 pb-3 font-medium">
             Enter Defination*
           </label>
@@ -63,6 +69,56 @@ const AddMore = ({ formik }) => {
             </span>
           ) : null}
         </div>
+
+        <div
+          role="banner"
+          onClick={handleSelectModal}
+          className="flex flex-col w-full sm:mt-4 sm:w-2/6"
+        >
+          {/* Button */}
+          Select Image
+        </div>
+
+        {/* Modal
+                    Use Any Library Modal
+              */}
+        {openModal && (
+          <div
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <div
+              style={{
+                width: "50vw",
+                height: "70vh",
+                background: "white",
+                color: "white",
+                zIndex: "10",
+                borderRadius: "16px",
+                border: "1px solid black",
+                boxShadow: "0 5px 20px 0 rgba(0, 0, 0, 0.04)",
+              }}
+            >
+              <div className="p-[20px] flex items-center gap-5">
+                {files?.map((file) => (
+                  <img
+                    key={file}
+                    src={file}
+                    className="w-[150px] h-[150px] cursor-pointer"
+                    onClick={() => {
+                      handleSelectModal();
+                      formik.setFieldValue("selectedImage", file);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <span
