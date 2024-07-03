@@ -12,10 +12,24 @@ const CreateNew = () => {
 
   const [files, setFiles] = useState();
 
-  const handleChange = (e) =>
-    setFiles(
-      Object.values(e.target.files)?.map((item) => URL.createObjectURL(item))
-    );
+  const handleChange = (e) => {
+    const readFiles = [];
+    Object.values(e.target.files)?.map((file) => {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        // Store the image in localStorage
+        // localStorage.setItem("uploadedImage", reader.result);
+        // setImage(reader.result);
+        readFiles.push(reader.result);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+    setFiles(readFiles);
+  };
 
   const initialValues = {
     groupName: "",
