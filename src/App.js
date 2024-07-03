@@ -2,9 +2,9 @@ import Navbar from "./Components/Navbar";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Button from "./Components/Button";
-import CreateNew from "./Pages/1stpage/CreateNew";
-import MyFlashcard from "./Pages/2ndpage/MyFlashcard";
-import FlashcardDetails from "./Pages/3rdpage/FlashcardDetails";
+import CreateNew from "./Pages/CreateFlashcardPage/CreateNew";
+import MyFlashcard from "./Pages/MyFlascardsPage/MyFlashcard";
+import FlashcardDetails from "./Pages/FlashcardDetailsPage/FlashcardDetails";
 
 function App() {
   const flashstate = useSelector((state) => state.Reducer.showNum);

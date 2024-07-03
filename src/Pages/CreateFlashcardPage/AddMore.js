@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addInputBox } from "../../redux/action/Action";
 
@@ -6,10 +6,27 @@ const AddMore = ({ formik, files }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.Reducer.inputData);
 
-  const [openModal, setOpenModal] = useState(false);
+  const fileInputRef = useRef(null);
 
-  const handleSelectModal = () => setOpenModal((prev) => !prev);
+  // Function to open image file input dialog
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
 
+  //handle image selection of flash card
+  const handleImageChange = (e) => {
+    // Get the first file from the event
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        formik.setFieldValue("selectedImage", reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Function to dispatch form data and reset form values
   const addInputValue = () => {
     dispatch(
       addInputBox({
@@ -29,6 +46,7 @@ const AddMore = ({ formik, files }) => {
         id="form_resp"
         className="flex flex-col sm:justify-start sm:flex-row"
       >
+        {/* Input for flashcard term */}
         <div className="relative flex flex-col sm mr-4 mb-3 sm:mb-0 sm:mt-4 w-full sm:w-2/6">
           <span id="num1" className="bg-red-500">
             {state.length + 1}
@@ -50,6 +68,7 @@ const AddMore = ({ formik, files }) => {
           ) : null}
         </div>
 
+        {/*Input Definition for flashcard */}
         <div className="flex flex-col w-full sm:mt-4 sm:w-2/6">
           <label htmlFor="define" className="text-gray-600 pb-3 font-medium">
             Enter Defination*
@@ -70,57 +89,46 @@ const AddMore = ({ formik, files }) => {
           ) : null}
         </div>
 
+        {/*FlashCard Image Selection */}
         <div
           role="banner"
-          onClick={handleSelectModal}
           className="flex flex-col w-full sm:mt-4 sm:w-2/6"
         >
-          {/* Button */}
-          Select Image
-        </div>
-
-        {/* Modal
-                    Use Any Library Modal
-              */}
-        {openModal && (
-          <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <div
-              style={{
-                width: "50vw",
-                height: "70vh",
-                background: "white",
-                color: "white",
-                zIndex: "10",
-                borderRadius: "16px",
-                border: "1px solid black",
-                boxShadow: "0 5px 20px 0 rgba(0, 0, 0, 0.04)",
-              }}
+          <label htmlFor="selectImage" className="text-gray-600 pb-3 font-medium">
+            &nbsp;
+          </label>
+          {formik.values.selectedImage ? (
+            // Display selected image preview
+            <img
+              src={formik.values.selectedImage}
+              alt="Selected"
+              className="w-[50px] h-[50px] ml-4"
+              onClick={handleFileInputClick}
+            />
+          ) : (
+            <button
+              onClick={handleFileInputClick}
+              className="bg-transparent ml-4 mt-2 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             >
-              <div className="p-[20px] flex items-center gap-5">
-                {files?.map((file) => (
-                  <img
-                    key={file}
-                    src={file}
-                    className="w-[150px] h-[150px] cursor-pointer"
-                    onClick={() => {
-                      handleSelectModal();
-                      formik.setFieldValue("selectedImage", file);
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+              Select Image
+            </button>
+          )}
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
+          {formik.errors.selectedImage ? (
+            <span className="text-red-600 text-sm">
+              {formik.errors.selectedImage}
+            </span>
+          ) : null}
+        </div>
       </div>
 
+      {/* Add more button */}
       <span
         className="py-4 inline-block cursor-pointer font-medium mt-8 text-blue-700"
         onClick={addInputValue}

@@ -60,14 +60,8 @@ code {
   left: 36.5%;
 }
 
-.cardImg {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: rgb(186 176 176);
-}
 
-/* --------------------- SharBtn.js style---------- */
+/* --------------------- Share Button style---------- */
 .popupBox {
   width: 100%;
   height: 100%;

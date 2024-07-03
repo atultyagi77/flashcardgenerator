@@ -5,7 +5,7 @@ import {
   SHOW_FLASH_CARDS,
 } from "../actionTypes";
 
-// -------- add input box
+//  add input box
 export const addInputBox = (data) => {
   return {
     type: ADD_INPUT_BOX,
@@ -13,7 +13,7 @@ export const addInputBox = (data) => {
   };
 };
 
-// --------- delete input box
+// delete input box
 export const deleteInputBox = (data) => {
   return {
     type: DELETE_INPUT_BOX,
@@ -21,7 +21,7 @@ export const deleteInputBox = (data) => {
   };
 };
 
-// --------- add group
+//  add group
 export const addGroup = (data) => {
   // console.log('group ',data)
   return {
@@ -30,8 +30,8 @@ export const addGroup = (data) => {
   };
 };
 
-// --------- show flashcards
-export const showFalshCard = (data) => {
+// show flashcards
+export const showFlashCard = (data) => {
   // console.log('flash action: ', data)
 
   return {
