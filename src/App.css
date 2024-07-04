@@ -7,7 +7,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: #fef2f2; */
   background-color: #e7f2e7;
 
 }
@@ -17,7 +16,7 @@ code {
     monospace;
 }
 
-/* heading components ----------------------*/
+/* heading components */
 #flashGroup,
 #createBtn {
   height: 5px;
@@ -29,7 +28,7 @@ code {
   transition: 0.5s ease;
 }
 
-/* form - number --------- */
+/* form number */
 #num {
   position: absolute;
   left: -8%;
@@ -49,7 +48,7 @@ code {
   color: white;
 }
 
-/* ------- FlashGroup.js styles -------- */
+/* ------- FlashGroup styles -------- */
 #img {
   width: 70px;
   height: 70px;
@@ -82,7 +81,7 @@ code {
   cursor: pointer;
 }
 
-/* ---------------------------- responsiveness------------ */
+/* ---------------------------- responsive on different screens ------------ */
 @media screen and (max-width: 600px) {
   #form_resp {
     flex-direction: column;
