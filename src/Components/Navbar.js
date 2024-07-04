@@ -1,5 +1,5 @@
 import React from "react";
-import almabetterlogo from "./almalogo.png";
+import almabetterlogo from "./assets/almalogo.png";
 
 const Navbar = () => {
   return (

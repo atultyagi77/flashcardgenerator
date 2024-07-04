@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/exports";
 import { BiCopy } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FlashcardDetails = () => {
   // Redux state selector to get Redux state
@@ -35,7 +37,10 @@ const FlashcardDetails = () => {
   const [url, setUrl] = useState();
   const urlCopyHandler = () => {
     navigator.clipboard.writeText(document.location.href);
+    //success copy url color 
     setCopyAlertColor("green");
+    //success copy url alert
+    toast.success("URL copied to clipboard!");
   };
 
   // Share handler for displaying share options
@@ -218,6 +223,7 @@ const FlashcardDetails = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
